@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31613.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "marking.Common", "marking.Common\marking.Common.csproj", "{6A65955B-5A17-42BA-BF7D-B84B8ACFABF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "marking.Common", "marking.Common\marking.Common.csproj", "{6A65955B-5A17-42BA-BF7D-B84B8ACFABF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "marking.Functions", "marking.Functions\marking.Functions.csproj", "{C1E8636D-FB0E-4499-A7DF-42E5C51E8AF5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "marking.Functions", "marking.Functions\marking.Functions.csproj", "{C1E8636D-FB0E-4499-A7DF-42E5C51E8AF5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "marking.Test", "marking.Test\marking.Test.csproj", "{5E443244-BE08-4A86-9009-13AE389D853C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "marking.Test", "marking.Test\marking.Test.csproj", "{5E443244-BE08-4A86-9009-13AE389D853C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

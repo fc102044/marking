@@ -86,7 +86,7 @@ namespace marking.Functions.Functions
                 });
             }
 
-            // update todo
+            // update marking
             MarkingEntity markingEntity = (MarkingEntity)findResult.Result;
             markingEntity.consolidated = marking.consolidated;
 
@@ -134,7 +134,7 @@ namespace marking.Functions.Functions
         }
 
         [FunctionName(nameof(GetMarkingbyId))]
-        public static IActionResult GetMarkingbyId(
+        public static  IActionResult GetMarkingbyId(
         [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "marking/{id}")] HttpRequest req,
         [Table("marking", "MARKING", "{id}", Connection = "AzureWebJobsStorage")] MarkingEntity markingEntity,
         string id,
@@ -145,7 +145,7 @@ namespace marking.Functions.Functions
             if (markingEntity == null)
             {
                 // respeusta
-                return new BadRequestObjectResult(new Response
+                return  new BadRequestObjectResult(new Response
                 {
                     IsSuccess = false,
                     Message = "Marking not found"
