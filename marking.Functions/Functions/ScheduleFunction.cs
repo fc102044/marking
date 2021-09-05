@@ -46,7 +46,7 @@ namespace marking.Functions.Functions
                         TimeSpan Diff = lstMarking[i + 1].DateTimeInOrOut - lstMarking[i].DateTimeInOrOut;
                         double diffMinutes = (Math.Truncate(Diff.TotalMinutes * 10000) / 10000);
 
-                        Consolidated consolidated = new Consolidated
+                        ConsolidatedEntity consolidated = new ConsolidatedEntity
                         {
                             ETag = "*",
                             PartitionKey = "CONSOLIDATED",

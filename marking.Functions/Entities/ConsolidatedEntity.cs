@@ -5,7 +5,7 @@ using System.Text;
 
 namespace marking.Functions.Entities
 {
-    public class Consolidated : TableEntity
+    public class ConsolidatedEntity : TableEntity
     {
         public int IdWork { get; set; }
         public DateTime DateConsolidate { get; set; }
