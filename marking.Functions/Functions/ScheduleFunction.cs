@@ -13,12 +13,12 @@ namespace marking.Functions.Functions
     {
         [FunctionName("ScheduleFunction")]
         public static async Task Run(
-            [TimerTrigger("0 */2 * * * *")] TimerInfo myTimer,
+            [TimerTrigger("0 */1 * * * *")] TimerInfo myTimer,
             [Table("marking", Connection = "AzureWebJobsStorage")] CloudTable markingTable,
             [Table("consolidated", Connection = "AzureWebJobsStorage")] CloudTable consolidatedTable,
             ILogger log)
         {
-            // log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
+            string message = string.Empty;
 
             try
             {
@@ -33,7 +33,11 @@ namespace marking.Functions.Functions
                                                          .ThenBy(x => x.DateTimeInOrOut)
                                                          .ToList();
 
-                if (lstMarking.Count == 0) return;
+                if (lstMarking.Count == 0) {
+                    message = "Marking not found";
+                    log.LogInformation(message);
+                    return;
+                }
                 // each one is traversed to perform the calculation
                 for (int i = 0; i < lstMarking.Count; i++)
                 {
@@ -83,12 +87,12 @@ namespace marking.Functions.Functions
                     }
                 }
 
-                string message = "Consolidated today successful";
+                message = "Consolidated today successful";
                 log.LogInformation(message);
             }
             catch (Exception ex)
             {
-                string message = "Failed: " + ex.Message.ToString();
+                message = "Failed: " + ex.Message.ToString();
                 log.LogInformation(message);
             }
         }

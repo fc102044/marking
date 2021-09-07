@@ -54,13 +54,14 @@ namespace marking.Functions.Functions
                                                  TotalTime = x.Sum(s => s.MinutsWorked) / 60,
                                                  Date = x.Key.Year + "/" + x.Key.Month + "/" + x.Key.Day
                                              }).ToList();
-            string Marks = string.Empty;
+            string Marks = "[";
             for (int i = 0; i < lstConsolidate.Count; i++)
             {
-                Marks = "[{IdWork: '" + lstConsolidate[i].Id + "'," +
-                               "TotalTime: '" + (Math.Truncate(lstConsolidate[i].TotalTime * 100) / 100) + " hours '," +
-                               "Date: '" + lstConsolidate[i].Date + "'}]";
+                Marks += "{IdWork: '" + lstConsolidate[i].Id + "'," +
+                               "TotalTime: '" + (Math.Truncate(lstConsolidate[i].TotalTime * 100) / 100).ToString().Replace(",",":") + " hours '," +
+                               "Date: '" + lstConsolidate[i].Date + "'},";
             }
+            Marks += "]";
             string message = $"Get {lstConsolidate.Count} items";
             log.LogInformation(message);
             return new OkObjectResult(new Response

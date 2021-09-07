@@ -3,7 +3,7 @@ using marking.Functions.Functions;
 using marking.Test.Helpers;
 using Xunit;
 
-namespace todofc.Test.Test
+namespace marking.Test.Test
 {
     public class ScheduleFunctionTest
     {

@@ -36,14 +36,14 @@ namespace marking.Functions.Functions
                     Message = "The request must have a marking."
                 });
             }
-
+            
             MarkingEntity markingEntity = new MarkingEntity
             {
                 ETag = "*",
                 PartitionKey = "MARKING",
                 RowKey = Guid.NewGuid().ToString(),
                 IdEmpleo = marking.IdEmpleo,
-                DateTimeInOrOut = DateTime.UtcNow,
+                DateTimeInOrOut = marking.DateTimeInOrOut,
                 Tipo = marking.Tipo,
                 consolidated = false,
             };
@@ -68,7 +68,7 @@ namespace marking.Functions.Functions
         string id,
         ILogger log)
         {
-            log.LogInformation($"update for todo: {id}, recived");
+            log.LogInformation($"update for marking: {id}, recived");
 
             string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
             Marking marking = JsonConvert.DeserializeObject<Marking>(requestBody);
@@ -117,12 +117,15 @@ namespace marking.Functions.Functions
         [Table("marking", Connection = "AzureWebJobsStorage")] CloudTable markingTable,
         ILogger log)
         {
-            log.LogInformation("Get all todos received.");
+            log.LogInformation("Get all markings received.");
 
             TableQuery<MarkingEntity> query = new TableQuery<MarkingEntity>();
             TableQuerySegment<MarkingEntity> markings = await markingTable.ExecuteQuerySegmentedAsync(query, null);
-
-            string message = "Retrieved all markings";
+            string message = string.Empty;
+            if (markings.Results.Count == 0)
+                message = "Markings not found";
+            else
+                message = "Retrieved all markings";
             log.LogInformation(message);
 
             return new OkObjectResult(new Response
@@ -171,7 +174,7 @@ namespace marking.Functions.Functions
         string id,
         ILogger log)
         {
-            log.LogInformation($"Delete todo Id: {id} received");
+            log.LogInformation($"Delete Marking Id: {id} received");
 
             if (markingEntity == null)
             {
@@ -184,7 +187,7 @@ namespace marking.Functions.Functions
             }
 
             await markingTable.ExecuteAsync(TableOperation.Delete(markingEntity));
-            string message = $"Todo: {markingEntity.RowKey}, deleted";
+            string message = $"marking: {markingEntity.RowKey}, deleted";
             log.LogInformation(message);
 
             return new OkObjectResult(new Response
